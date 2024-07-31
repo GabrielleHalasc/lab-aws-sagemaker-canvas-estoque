@@ -7,6 +7,8 @@
 - Fiz a limpesa desses dados, substituindo os falores em falta por zero e definindo que a coluna alvo da analise seria a de quantidade de estoque. Levando em consideraçao tambem os feriados do Brasil e como isso afetava.
 - Treinei meu modelo com uma contruçao longa que levou cerca de 2 horas
 
+![image](https://github.com/user-attachments/assets/0bc3c5cc-71a7-458c-819f-03d40b0927ca)
+
 ### Analise de resultados:
 
 - 1. Avg. wQL (Weighted Quantile Loss):
@@ -30,8 +32,10 @@
    Obtive um MASE de 0.000 que indica que o modelo está fazendo previsões com uma precisão muito alta em relação ao modelo de referência. No entanto, um valor tão baixo pode também sugerir um possível erro de cálculo ou configuração.
 
 - 6. Os feriados nao impactaram no resutlado.
-  
+     
+  7. ![image](https://github.com/user-attachments/assets/918794c6-0ac6-4e98-8207-855d519878b4)
 
+  
 ### Previsão:
 
 - 1. Muitos produtos acabaram com uma historical demand zerada, oq leva-nos a concluir que ou foi descontinuado ou precisamos reaver o controle de estoque pois ele esta acabando e nao esta sendo reposto
@@ -45,4 +49,14 @@
     
      3.  Sazonalidade e Efeitos Temporais:
 Fatores Sazonais: Se o seu modelo não estiver ajustado para capturar efeitos sazonais ou outros fatores temporais, pode haver uma previsão de queda baseada em padrões sazonais ou cíclicos que não foram considerados.
+
+P10 LINHA ROSA (Reflete um cenário pessimista)
+
+P50 LINHA VERDE(Reflete um cenário neutro)
+
+P90 LINHA AMARELO(Reflete um cenário otimista)
+
+![Captura de tela 2024-07-31 174754](https://github.com/user-attachments/assets/bd3ffa89-126b-415a-a2a4-223ba51edb98)
+
+![image](https://github.com/user-attachments/assets/ff52f96c-8353-44d4-810a-187a0477d6c1)
 
