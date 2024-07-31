@@ -1,47 +1,48 @@
 # 📊 Previsão de Estoque Inteligente na AWS com [SageMaker Canvas](https://aws.amazon.com/pt/sagemaker/canvas/)
 
-Bem-vindo ao desafio de projeto "Previsão de Estoque Inteligente na AWS com SageMaker Canvas. Neste Lab DIO, você aprenderá a usar o SageMaker Canvas para criar previsões de estoque baseadas em Machine Learning (ML). Siga os passos abaixo para completar o desafio!
+### Criaçao do modelo:
 
-## 📋 Pré-requisitos
+- Primeiro passo foi criar minha conta dentro da AWS e entender mais a fundo como essa site funciona, explorando suas centenas de possibilidades.
+- Dentro do SageMaker Canvas eu criei o meu modelo de projeto, importando uma dataset de quantidade de estoque.
+- Fiz a limpesa desses dados, substituindo os falores em falta por zero e definindo que a coluna alvo da analise seria a de quantidade de estoque. Levando em consideraçao tambem os feriados do Brasil e como isso afetava.
+- Treinei meu modelo com uma contruçao longa que levou cerca de 2 horas
 
-Antes de começar, certifique-se de ter uma conta na AWS. Se precisar de ajuda para criar sua conta, confira nosso repositório [AWS Cloud Quickstart](https://github.com/digitalinnovationone/aws-cloud-quickstart).
+### Analise de resultados:
 
+- 1. Avg. wQL (Weighted Quantile Loss):
+   É a metrica que mede o erro entre os valores previstos pelo modelo e os valores reais, onde o objetivo é prever nao apenas um valor central, mas tambem um intervalo de confiança.
+   Meu resultado obtido foi 1.006 que sugere que o modelo está fazendo previsões com qualidade muito próxima ao valor ideal.
 
-## 🎯 Objetivos Deste Desafio de Projeto (Lab)
+- 2.  MAPE (Mean Absolute Percentage Error):
+   Mede o erro percentual médio absoluto entre os valores previstos e os valores reais.
+   Meu resultado obteve um MAPE de 0.002 que significa, em média, as previsões estão erradas em 0.2%
 
-![image](https://github.com/digitalinnovationone/lab-aws-sagemaker-canvas-estoque/assets/730492/72f5c21f-5562-491e-aa42-2885a3184650)
+- 3. WAPE (Weighted Absolute Percentage Error):
+   Similar ao MAPE, mas ponderado. Ele é útil quando há uma variação significativa nas magnitudes dos valores reais.
+   Meu resultado obteve um WAPE de 1.004 sugere que há algum peso considerado nas previsões, mas o valor é relativamente baixo, indicando bom desempenho.
 
-- Dê um fork neste projeto e reescreva este `README.md`. Sinta-se à vontade para detalhar todo o processo de criação do seu Modelo de ML para uma "Previsão de Estoque Inteligente".
-- Para isso, siga o [passo a passo] descrito a seguir e evolua as suas habilidades em ML no-code com o Amazon SageMaker Canvas.
-- Ao concluir, envie a URL do seu repositório com a solução na plataforma da DIO.
+- 4. RMSE (Root Mean Square Error):
+   Mede a raiz quadrada do erro médio quadrático. Ele penaliza erros maiores mais severamente do que erros menores.
+   Obtive um RMSE de 3.414 significa que, em média, as previsões estão erradas em aproximadamente 3 unidades. Sugere que há algum erro médio quadrático nas previsões, mas se os valores reais e previstos estiverem próximos, isso pode indicar um bom ajuste geral.
 
+- 5. MASE (Mean Absolute Scaled Error):
+   Compara a precisão do modelo com a de um modelo ingênuo, como a média dos valores passados.
+   Obtive um MASE de 0.000 que indica que o modelo está fazendo previsões com uma precisão muito alta em relação ao modelo de referência. No entanto, um valor tão baixo pode também sugerir um possível erro de cálculo ou configuração.
 
-## 🚀 Passo a Passo
+- 6. Os feriados nao impactaram no resutlado.
+  
 
-### 1. Selecionar Dataset
+### Previsão:
 
--   Navegue até a pasta `datasets` deste repositório. Esta pasta contém os datasets que você poderá escolher para treinar e testar seu modelo de ML. Sinta-se à vontade para gerar/enriquecer seus próprios datasets, quanto mais você se engajar, mais relevante esse projeto será em seu portfólio.
--   Escolha o dataset que você usará para treinar seu modelo de previsão de estoque.
--   Faça o upload do dataset no SageMaker Canvas.
+- 1. Muitos produtos acabaram com uma historical demand zerada, oq leva-nos a concluir que ou foi descontinuado ou precisamos reaver o controle de estoque pois ele esta acabando e nao esta sendo reposto
+- 2. Os valores previstos em seu modo geral tendem a uma queda nas previsoes, o que pode ocorrer por algumas razoes, sendo elas:
+     
+     1. Tendência Natural de Dados:
+      Se os dados históricos mostram uma tendência natural de queda nas vendas ou no estoque de produtos, o modelo pode estar capturando essa tendência e projetando-a para o futuro. Isso pode ocorrer se houver uma diminuição na demanda ou um ciclo sazonal que resulta em vendas mais baixas ao longo do tempo.
 
-### 2. Construir/Treinar
+     2. Mudanças no Comportamento do Consumidor:
+     Alterações no Mercado: Mudanças no comportamento do consumidor ou no mercado, como uma diminuição no interesse por certos produtos ou a introdução de novos concorrentes, podem causar uma previsão de queda nas vendas.
+    
+     3.  Sazonalidade e Efeitos Temporais:
+Fatores Sazonais: Se o seu modelo não estiver ajustado para capturar efeitos sazonais ou outros fatores temporais, pode haver uma previsão de queda baseada em padrões sazonais ou cíclicos que não foram considerados.
 
--   No SageMaker Canvas, importe o dataset que você selecionou.
--   Configure as variáveis de entrada e saída de acordo com os dados.
--   Inicie o treinamento do modelo. Isso pode levar algum tempo, dependendo do tamanho do dataset.
-
-### 3. Analisar
-
--   Após o treinamento, examine as métricas de performance do modelo.
--   Verifique as principais características que influenciam as previsões.
--   Faça ajustes no modelo se necessário e re-treine até obter um desempenho satisfatório.
-
-### 4. Prever
-
--   Use o modelo treinado para fazer previsões de estoque.
--   Exporte os resultados e analise as previsões geradas.
--   Documente suas conclusões e qualquer insight obtido a partir das previsões.
-
-## 🤔 Dúvidas?
-
-Esperamos que esta experiência tenha sido enriquecedora e que você tenha aprendido mais sobre Machine Learning aplicado a problemas reais. Se tiver alguma dúvida, não hesite em abrir uma issue neste repositório ou entrar em contato com a equipe da DIO.
